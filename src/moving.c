@@ -774,9 +774,6 @@ user *meequalload(user *meptr)
 {
     user *tmp;
     tmp = meptr->next;
-    //tmp->tmp = meptr->tmp;
-    //tmp->tmprow = meptr->tmprow;
-    //tmp->tmpcol = meptr->tmpcol;
 
     for(int i = 0; i < ROW; i++)
     {
@@ -786,11 +783,6 @@ user *meequalload(user *meptr)
         }
     }
 
-    //tmp->orignrow = meptr->orignrow;
-    //tmp->origncol = meptr->origncol;
-    //tmp->afterrow = meptr->afterrow;
-    //tmp->aftercol = meptr->aftercol;
-
     return tmp;
 }
 
@@ -798,9 +790,6 @@ user *youequalload(user *youptr)
 {
     user *tmp;
     tmp = youptr->next;
-    //tmp->tmp = youptr->tmp;
-    //tmp->tmprow = youptr->tmprow;
-    //tmp->tmpcol = youptr->tmpcol;
 
     for(int i = 0; i < ROW; i++)
     {
@@ -809,11 +798,6 @@ user *youequalload(user *youptr)
             tmp->userchess_board[i][j] = youptr->userchess_board[i][j];
         }
     }
-
-    //tmp->orignrow = youptr->orignrow;
-    //tmp->origncol = youptr->origncol;
-    //tmp->afterrow = youptr->afterrow;
-    //tmp->aftercol = youptr->aftercol;
 
     return tmp;
 }
