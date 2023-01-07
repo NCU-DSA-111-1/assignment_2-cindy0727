@@ -1,4 +1,3 @@
-//#include "../inc/user.h"
 #include "../inc/function.h"
 
 int breaking = 0;
@@ -41,8 +40,6 @@ int game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **
     usermeptr->aftercol = 10 - usermeptr->aftercol;
     cg +=1;
     user1move(usermeptr, useryouptr);
-    //system("clear");
-    //printf("跳出來\n");
     printchess(usermeptr, useryouptr, &chess_board);
     //第二手開始進入迴圈
     while(1)
@@ -93,7 +90,6 @@ int game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **
                 }
                 cg -=1;
                 ireg +=1;
-                //system("clear");
                 printchess(usermeptr, useryouptr, &chess_board);
                 *rear1 += 1;
                 
@@ -137,7 +133,6 @@ int game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **
                     }
                     cg -=1;
                     ireg +=1;
-                    //system("clear");
                     printchess(usermeptr, useryouptr, &chess_board);
                 }
                 //user1輸入s表示儲存 不儲存s
@@ -200,7 +195,6 @@ int game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **
                         }   
                         savedone = 1;
                     }
-                    //usermeptr = usermeptr->prev;
                     printf("\n儲存完畢 請重新輸入座標\n\n");
                     sleep(1);
                     printchess(usermeptr, useryouptr, &chess_board);
@@ -216,7 +210,6 @@ int game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **
                     usermeptr->aftercol = 10 - usermeptr->aftercol;
                     user1move(usermeptr, useryouptr);
                     user1eatuser2(usermeptr,useryouptr);
-                    //system("clear");
                     printchess(usermeptr, useryouptr, &chess_board);
                     //判斷勝利
                     if(whowins(&chess_board) == 1)
@@ -307,7 +300,6 @@ int game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **
                     }
                     savedone = 1;
                 }
-                //useryouptr = useryouptr->prev;
                 printf("\n儲存完畢 請重新輸入座標\n\n");
                 sleep(1);
                 printchess(usermeptr, useryouptr, &chess_board);
@@ -395,7 +387,6 @@ int game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **
                 }
                 cg -=1;
                 ireg +=1;
-                //system("clear");
                 printchess(usermeptr, useryouptr, &chess_board);
                 *rear2 += 1;
                 if(cg > tmpcg)
@@ -439,7 +430,6 @@ int game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **
                     }
                     cg -=1;
                     ireg +=1;
-                    //system("clear");
                     printchess(usermeptr, useryouptr, &chess_board);
                 }
                 //user2輸入s儲存
@@ -501,7 +491,6 @@ int game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **
                         }
                         savedone =1;
                     }
-                    //useryouptr = useryouptr->prev;
                     printf("\n儲存完畢 請重新輸入座標\n\n");
                     sleep(1);
                     printchess(usermeptr, useryouptr, &chess_board);
@@ -517,7 +506,6 @@ int game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **
                     useryouptr->aftercol = 10 - useryouptr->aftercol;
                     user2move(useryouptr, usermeptr);
                     user2eatuser1(useryouptr,usermeptr);
-                    //system("clear");
                     printchess(usermeptr, useryouptr, &chess_board);
                     if(whowins(&chess_board) == 1)
                     {
@@ -607,8 +595,6 @@ int game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **
                     }
                     savedone =1;
                 }
-                //*rear1 -=1;
-                //usermeptr = usermeptr->prev;
                 printf("\n儲存完畢 請重新輸入座標\n\n");
                 sleep(1);
                 printchess(usermeptr, useryouptr, &chess_board);
@@ -634,7 +620,6 @@ int game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **
             user1move(usermeptr, useryouptr);
             user1eatuser2(usermeptr,useryouptr);
         }
-        //system("clear");//本來就沒有
         printchess(usermeptr, useryouptr, &chess_board);
         if(whowins(&chess_board) == 1)//判斷誰贏
         {

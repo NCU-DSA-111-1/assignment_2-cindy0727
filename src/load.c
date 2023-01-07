@@ -1,4 +1,3 @@
-//#include "../inc/user.h"
 #include "../inc/function.h"
 
 int rear1 = 0;

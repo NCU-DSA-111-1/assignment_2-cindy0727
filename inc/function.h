@@ -31,12 +31,8 @@ int user2chessandmove(user * user2, user * user1);//哪個棋子和如何移動
 //timer裡的
 void user1timer();
 void user2timer();
-void user1timermove();
-void user2timermove();
 void user1timeout_cb (EV_P_ ev_timer *w, int revents);
 void user2timeout_cb (EV_P_ ev_timer *w, int revents);
-void user1timeout_cbmove (EV_P_ ev_timer *w, int revents);
-void user2timeout_cbmove (EV_P_ ev_timer *w, int revents);
 void user1stop_cb (EV_P_ ev_io *w, int revents);
 void user2stop_cb (EV_P_ ev_io *w, int revents);
 
