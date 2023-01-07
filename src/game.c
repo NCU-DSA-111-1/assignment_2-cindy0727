@@ -9,11 +9,13 @@ int cg = 0;
 int tmpcg =0;
 
 
-void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **tmpusermefrontptr, user **tmpuseryoufrontptr)
+int game(int * rear1, int * rear2, int *front1, int *front2, int *count, user **tmpusermefrontptr, user **tmpuseryoufrontptr)
 {
     //初始化雙方
     creat_user1(usermeptr);
     creat_user2(useryouptr);
+    printf(" user1遊戲時間：00:00:00\n");
+    printf(" user2遊戲時間：00:00:00\n\n");
     printchess(usermeptr, useryouptr, &chess_board);
 
     *tmpusermefrontptr = usermefrontptr;//存檔時的暫存
@@ -23,14 +25,15 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
     //user1輸入
     *rear1 += 1;
     usermeptr = addme(usermeptr);
-    printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+    printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
     user1timer();
-    printf("跳出來\n");
     scanf("%1s%d%d%d", &usermeptr->input, &usermeptr->orignrow, &usermeptr->aftercol, &usermeptr->afterrow);
     if(usermeptr->input == 115)
     {
+        printchess(usermeptr, useryouptr, &chess_board);
         printf("第一筆才不給你儲存資料 想不到吧哈哈 沒啦只是還要改linkedlist很麻煩所以第二手再儲存 感恩\n");
-        printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+        printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
+        user1timer();
         scanf("%1s%d%d%d", &usermeptr->input, &usermeptr->orignrow, &usermeptr->aftercol, &usermeptr->afterrow);
     }
     usermeptr->origncol = usermeptr->input - 48;
@@ -39,7 +42,7 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
     cg +=1;
     user1move(usermeptr, useryouptr);
     //system("clear");
-    printf("跳出來\n");
+    //printf("跳出來\n");
     printchess(usermeptr, useryouptr, &chess_board);
     //第二手開始進入迴圈
     while(1)
@@ -54,7 +57,7 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
         {
             useryouptr = youequal(useryouptr);
         }
-        printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+        printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
         user2timer();
         scanf("%1s%d%d%d", &useryouptr->input, &useryouptr->orignrow, &useryouptr->aftercol, &useryouptr->afterrow);
         while(1)
@@ -90,7 +93,7 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                 }
                 cg -=1;
                 ireg +=1;
-                system("clear");
+                //system("clear");
                 printchess(usermeptr, useryouptr, &chess_board);
                 *rear1 += 1;
                 
@@ -103,7 +106,8 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                 {
                     usermeptr = meequal(usermeptr);
                 }
-                printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+                printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
+                user1timer();
                 scanf("%1s%d%d%d", &usermeptr->input, &usermeptr->orignrow, &usermeptr->aftercol, &usermeptr->afterrow);
                 
                 //user1輸入0代表user2悔棋
@@ -133,7 +137,7 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                     }
                     cg -=1;
                     ireg +=1;
-                    system("clear");
+                    //system("clear");
                     printchess(usermeptr, useryouptr, &chess_board);
                 }
                 //user1輸入s表示儲存 不儲存s
@@ -141,6 +145,11 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                 {
                     //先寫到站存記憶體
                     savedone = 0;
+                    if((*front1 > (*rear1-1)) && (*front2 > *rear2))
+                    {
+                        printf("真滴抱歉 目前不支援悔棋部分超過先前儲存部分 將直接結束遊戲\n");
+                        return 0;
+                    }
                     while((*front1 < (*rear1-1)) || (*front2 < *rear2))
                     {
                         if(*front1 > *front2)
@@ -193,7 +202,10 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                     }
                     //usermeptr = usermeptr->prev;
                     printf("\n儲存完畢 請重新輸入座標\n\n");
-                    printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+                    sleep(1);
+                    printchess(usermeptr, useryouptr, &chess_board);
+                    printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
+                    user1timer();
                     scanf("%1s%d%d%d", &usermeptr->input, &usermeptr->orignrow, &usermeptr->aftercol, &usermeptr->afterrow);
                 }    
                 else//輸入非0可移動
@@ -204,19 +216,21 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                     usermeptr->aftercol = 10 - usermeptr->aftercol;
                     user1move(usermeptr, useryouptr);
                     user1eatuser2(usermeptr,useryouptr);
-                    system("clear");
+                    //system("clear");
                     printchess(usermeptr, useryouptr, &chess_board);
                     //判斷勝利
                     if(whowins(&chess_board) == 1)
                     {
                         breaking = 1;
                         printf("\nuser1勝利！！！！\n\n\n");
+                        return 1;
                         break;
                     }
                     else if(whowins(&chess_board) == 2)
                     {
                         breaking =1;
                         printf("\nuser2勝利！！！！\n\n\n");
+                        return 1;
                         break;
                     }
                 }
@@ -230,13 +244,19 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                 {
                     useryouptr = youequal(useryouptr);
                 }
-                printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+                printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
+                user2timer();
                 scanf("%1s%d%d%d", &useryouptr->input, &useryouptr->orignrow, &useryouptr->aftercol, &useryouptr->afterrow);
             }
             //user2輸入s表示儲存
             else if(useryouptr->input == 115)
             {
                 savedone = 0;
+                if((*front1 > (*rear1-1)) && (*front2 > *rear2))
+                {
+                    printf("真滴抱歉 目前不支援悔棋部分超過先前儲存部分 將直接結束遊戲\n");
+                    return 0;
+                }
                 while((*front1 < *rear1) || (*front2 < (*rear2-1)))
                 {
                     if(*front1 > *front2)
@@ -289,7 +309,10 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                 }
                 //useryouptr = useryouptr->prev;
                 printf("\n儲存完畢 請重新輸入座標\n\n");
-                printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+                sleep(1);
+                printchess(usermeptr, useryouptr, &chess_board);
+                printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
+                user2timer();
                 scanf("%1s%d%d%d", &useryouptr->input, &useryouptr->orignrow, &useryouptr->aftercol, &useryouptr->afterrow);
             }    
             else
@@ -311,17 +334,18 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
             user2move(useryouptr, usermeptr);
             user2eatuser1(useryouptr,usermeptr);
         }
-        //system("clear");
         printchess(usermeptr, useryouptr, &chess_board);
         //判斷勝利
         if(whowins(&chess_board) == 1)
         {
             printf("\nuser1勝利！！！！\n\n\n");
+            return 1;
             break;
         }
         else if(whowins(&chess_board) == 2)
         {
             printf("\nuser2勝利！！！！\n\n\n");
+            return 1;
             break;
         }
 
@@ -335,7 +359,7 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
         {
             usermeptr = meequal(usermeptr);
         }
-        printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+        printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
         user1timer();
         scanf("%1s%d%d%d", &usermeptr->input, &usermeptr->orignrow, &usermeptr->aftercol, &usermeptr->afterrow);
         while(1)
@@ -371,7 +395,7 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                 }
                 cg -=1;
                 ireg +=1;
-                system("clear");
+                //system("clear");
                 printchess(usermeptr, useryouptr, &chess_board);
                 *rear2 += 1;
                 if(cg > tmpcg)
@@ -383,7 +407,8 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                 {
                     useryouptr = youequal(useryouptr);
                 }
-                printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+                printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
+                user2timer();
                 scanf("%1s%d%d%d", &useryouptr->input, &useryouptr->orignrow, &useryouptr->aftercol, &useryouptr->afterrow);
                 
                 
@@ -414,13 +439,18 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                     }
                     cg -=1;
                     ireg +=1;
-                    system("clear");
+                    //system("clear");
                     printchess(usermeptr, useryouptr, &chess_board);
                 }
                 //user2輸入s儲存
                 else if(useryouptr->input == 115)
                 {
                     savedone = 0;
+                    if((*front1 > (*rear1-1)) && (*front2 > *rear2))
+                    {
+                        printf("真滴抱歉 目前不支援悔棋部分超過先前儲存部分 將直接結束遊戲\n");
+                        return 0;
+                    }
                     while((*front1 < *rear1)|| (*front2 < (*rear2-1)))
                     {
                         if(*front1 > *front2)
@@ -473,7 +503,10 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                     }
                     //useryouptr = useryouptr->prev;
                     printf("\n儲存完畢 請重新輸入座標\n\n");
-                    printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+                    sleep(1);
+                    printchess(usermeptr, useryouptr, &chess_board);
+                    printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
+                    user2timer();
                     scanf("%1s%d%d%d", &useryouptr->input, &useryouptr->orignrow, &useryouptr->aftercol, &useryouptr->afterrow);
                 }    
                 else
@@ -484,18 +517,20 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                     useryouptr->aftercol = 10 - useryouptr->aftercol;
                     user2move(useryouptr, usermeptr);
                     user2eatuser1(useryouptr,usermeptr);
-                    system("clear");
+                    //system("clear");
                     printchess(usermeptr, useryouptr, &chess_board);
                     if(whowins(&chess_board) == 1)
                     {
                         breaking += 1;
                         printf("\nuser1勝利！！！！\n\n\n");
+                        return 1;
                         break;
                     }
                     else if(whowins(&chess_board) == 2)
                     {
                         breaking += 1;
                         printf("\nuser2勝利！！！！\n\n\n");
+                        return 1;
                         break;
                     }
                 }
@@ -509,13 +544,19 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                 {
                     usermeptr = meequal(usermeptr);
                 }
-                printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+                printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
+                user1timer();
                 scanf("%1s%d%d%d", &usermeptr->input, &usermeptr->orignrow, &usermeptr->aftercol, &usermeptr->afterrow);
             }
             //user1輸入s表示儲存
             else if(usermeptr->input == 115)
             {
                 savedone = 0;
+                if((*front1 > (*rear1-1)) && (*front2 > *rear2))
+                {
+                    printf("真滴抱歉 目前不支援悔棋部分超過先前儲存部分 將直接結束遊戲\n");
+                    return 0;
+                }
                 while((*front1 < (*rear1-1)) || (*front2 < *rear2))
                 {
                     if(*front1 > *front2)
@@ -569,7 +610,10 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
                 //*rear1 -=1;
                 //usermeptr = usermeptr->prev;
                 printf("\n儲存完畢 請重新輸入座標\n\n");
-                printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+                sleep(1);
+                printchess(usermeptr, useryouptr, &chess_board);
+                printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
+                user1timer();
                 scanf("%1s%d%d%d", &usermeptr->input, &usermeptr->orignrow, &usermeptr->aftercol, &usermeptr->afterrow);
             }    
             else
@@ -590,16 +634,18 @@ void game(int * rear1, int * rear2, int *front1, int *front2, int *count, user *
             user1move(usermeptr, useryouptr);
             user1eatuser2(usermeptr,useryouptr);
         }
-        //system("clear");
+        //system("clear");//本來就沒有
         printchess(usermeptr, useryouptr, &chess_board);
         if(whowins(&chess_board) == 1)//判斷誰贏
         {
             printf("\nuser1勝利！！！！\n\n\n");
+            return 1;
             break;
         }
         else if(whowins(&chess_board) == 2)
         {
             printf("\nuser2勝利！！！！\n\n\n");
+            return 1;
             break;
         }
     }

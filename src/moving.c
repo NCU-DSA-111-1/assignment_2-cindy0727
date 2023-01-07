@@ -2,6 +2,9 @@
 #include "../inc/function.h"
 
 int i, j;
+extern user chess_board;
+extern user *usermeptr;
+extern user *useryouptr;
 
 void user1move(user * user11, user * user22)
 {
@@ -19,7 +22,9 @@ void user1move(user * user11, user * user22)
             else
             {
                 printf("\n輸入不正確 請重新輸入\n");
-                printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+                printchess(usermeptr, useryouptr, &chess_board);
+                printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
+                user1timer();
                 scanf("%1s%d%d%d", &user11->input, &user11->orignrow, &user11->aftercol, &user11->afterrow);
                 user11->origncol = user11->input - 48;
                 user11->origncol = 10 - user11->origncol;
@@ -29,7 +34,9 @@ void user1move(user * user11, user * user22)
         else
         {
             printf("\n輸入不正確 請重新輸入\n");
-            printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+            printchess(usermeptr, useryouptr, &chess_board);
+            printf("依據圖上座標 User1 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
+            user1timer();
             scanf("%1s%d%d%d", &user11->input, &user11->orignrow, &user11->aftercol, &user11->afterrow);
             user11->origncol = user11->input - 48;
             user11->origncol = 10 - user11->origncol;
@@ -54,7 +61,9 @@ void user2move(user * user22, user * user11)
             else
             {
                 printf("\n輸入不正確 請重新輸入\n");
-                printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+                printchess(usermeptr, useryouptr, &chess_board);
+                printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
+                user2timer();
                 scanf("%1s%d%d%d", &user22->input, &user22->orignrow, &user22->aftercol, &user22->afterrow);
                 user22->origncol = user22->input - 48;
                 user22->origncol = 10 - user22->origncol;
@@ -64,7 +73,9 @@ void user2move(user * user22, user * user11)
         else
         {
             printf("\n輸入不正確 請重新輸入\n");
-            printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:");
+            printchess(usermeptr, useryouptr, &chess_board);
+            printf("依據圖上座標 User2 輸入想移動的棋子的原始座標空格移動後的位置座標:\n輸入s 0 0 0表示儲存 輸入0 0 0 0 表示悔棋\n");
+            user2timer();
             scanf("%1s%d%d%d", &user22->input, &user22->orignrow, &user22->aftercol, &user22->afterrow);
             user22->origncol = user22->input - 48;
             user22->origncol = 10 - user22->origncol;

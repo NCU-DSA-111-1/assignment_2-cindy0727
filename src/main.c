@@ -109,60 +109,65 @@ int main(int argc, char ** argv)
     {
         system("clear");
         initgame(&chess_board);
-        game(&rearone, &reartwo, &frontone, &fronttwo, &counter, &tmpmefrontptr, &tmpyoufrontptr);
-        //printf("%d %d", rearone, reartwo);
-        while((fronttwo < reartwo) || (frontone < rearone))
+        if(game(&rearone, &reartwo, &frontone, &fronttwo, &counter, &tmpmefrontptr, &tmpyoufrontptr) == 0)
         {
-            if(frontone > fronttwo)
+            return 0;
+        }
+        else
+        {
+            while((fronttwo < reartwo) || (frontone < rearone))
             {
-                fronttwo +=1;
-                tmpyoufrontptr = tmpyoufrontptr->next;
-                user *tmp;
-                tmp = (user *)malloc(sizeof(user));
-                tmp->prev = userloadptr;
-                tmp->next = NULL;
-                tmp->orignrow = tmpyoufrontptr->orignrow;//先寫到站存記憶體
-                tmp->origncol = tmpyoufrontptr->origncol;
-                tmp->afterrow = tmpyoufrontptr->afterrow;
-                tmp->aftercol = tmpyoufrontptr->aftercol;
-                userloadptr->next = tmp;
-                userloadptr = userloadptr->next;
-                counter +=1;
-                printf("front2:%d\n", fronttwo);
-            }
-            else if(frontone <= fronttwo)
-            {
-                frontone +=1;//因為第一筆資料在rear = 1的時候 所以事先動再移 
-                tmpmefrontptr = tmpmefrontptr->next;
-                if(frontone == 1)
+                if(frontone > fronttwo)
                 {
-                    userloadptr->orignrow = tmpmefrontptr->orignrow;
-                    userloadptr->origncol = tmpmefrontptr->origncol;
-                    userloadptr->afterrow = tmpmefrontptr->afterrow;
-                    userloadptr->aftercol = tmpmefrontptr->aftercol;
-                    userloadptr->prev = NULL;
-                    userloadptr->next = NULL;
-                    //記著頭
-                    loadfrontptr = userloadptr;
-                }
-                else
-                {
+                    fronttwo +=1;
+                    tmpyoufrontptr = tmpyoufrontptr->next;
                     user *tmp;
                     tmp = (user *)malloc(sizeof(user));
                     tmp->prev = userloadptr;
                     tmp->next = NULL;
-                    tmp->orignrow = tmpmefrontptr->orignrow;
-                    tmp->origncol = tmpmefrontptr->origncol;
-                    tmp->afterrow = tmpmefrontptr->afterrow;
-                    tmp->aftercol = tmpmefrontptr->aftercol;
+                    tmp->orignrow = tmpyoufrontptr->orignrow;//先寫到站存記憶體
+                    tmp->origncol = tmpyoufrontptr->origncol;
+                    tmp->afterrow = tmpyoufrontptr->afterrow;
+                    tmp->aftercol = tmpyoufrontptr->aftercol;
                     userloadptr->next = tmp;
                     userloadptr = userloadptr->next;
-                    
+                    counter +=1;
                 }
-                counter +=1;
-                //printf("front1:%d\n", frontone);
-            }   
+                else if(frontone <= fronttwo)
+                {
+                    frontone +=1;//因為第一筆資料在rear = 1的時候 所以事先動再移 
+                    tmpmefrontptr = tmpmefrontptr->next;
+                    if(frontone == 1)
+                    {
+                        userloadptr->orignrow = tmpmefrontptr->orignrow;
+                        userloadptr->origncol = tmpmefrontptr->origncol;
+                        userloadptr->afterrow = tmpmefrontptr->afterrow;
+                        userloadptr->aftercol = tmpmefrontptr->aftercol;
+                        userloadptr->prev = NULL;
+                        userloadptr->next = NULL;
+                        //記著頭
+                        loadfrontptr = userloadptr;
+                    }
+                    else
+                    {
+                        user *tmp;
+                        tmp = (user *)malloc(sizeof(user));
+                        tmp->prev = userloadptr;
+                        tmp->next = NULL;
+                        tmp->orignrow = tmpmefrontptr->orignrow;
+                        tmp->origncol = tmpmefrontptr->origncol;
+                        tmp->afterrow = tmpmefrontptr->afterrow;
+                        tmp->aftercol = tmpmefrontptr->aftercol;
+                        userloadptr->next = tmp;
+                        userloadptr = userloadptr->next;
+                    
+                    }
+                    counter +=1;
+                    //printf("front1:%d\n", frontone);
+                }   
+            }
         }
+        
 
         user *tmpfprint;//fprint時用到的暫存器
         tmpfprint = loadfrontptr;

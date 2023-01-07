@@ -25,7 +25,7 @@ void load()
     //user1輸入
     rear1 += 1;
     usermeptr = addme(usermeptr);
-    printf("輸入b往回一步，輸入f下一步:");
+    printf("\n輸入b往回一步，輸入f下一步:");
     scanf("%1s", &bof);
     if(bof == 'b')
     {

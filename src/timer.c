@@ -150,7 +150,8 @@ void user1stop_cb (EV_P_ ev_io *w, int revents)
     // user1hour = (user1endtime - user1starttime + user1usedtime) / 3600;
     // user1minute = (user1endtime - user1starttime + user1usedtime - user1hour * 3600)/60;
     // user1second = user1endtime - user1starttime + user1usedtime - user1hour * 3600 - user1minute * 60;
-    printf(" \n此手用時：%02ld秒\n", (user1endtime - user1starttime));//
+    system("clear");
+    //printf(" \n此手用時：%02ld秒\n", (user1endtime - user1starttime));//
     printf(" user1遊戲時間：%02d:%02d:%02d\n",user1hour,user1minute,user1second);
     printf(" user2遊戲時間：%02d:%02d:%02d\n\n",user2hour,user2minute,user2second);
     // Stop the watchers
@@ -167,7 +168,8 @@ void user2stop_cb (EV_P_ ev_io *w, int revents)
     // user1hour = (user1endtime - user1starttime + user1usedtime) / 3600;
     // user1minute = (user1endtime - user1starttime + user1usedtime - user1hour * 3600)/60;
     // user1second = user1endtime - user1starttime + user1usedtime - user1hour * 3600 - user1minute * 60;
-    printf(" \n此手用時：%02ld秒\n", (user2endtime - user2starttime));//
+    // printf(" \n此手用時：%02ld秒\n", (user2endtime - user2starttime));//
+    system("clear");
     printf(" user1遊戲時間：%02d:%02d:%02d\n",user1hour,user1minute,user1second);
     printf(" user2遊戲時間：%02d:%02d:%02d\n\n",user2hour,user2minute,user2second);
     // Stop the watchers
